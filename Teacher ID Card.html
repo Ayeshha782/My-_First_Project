@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher ID Card</title>
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #eef2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .id-card {
+            width: 320px;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .card-top {
+            background-color: #009640;
+            color: #ffffff;
+            padding: 16px 10px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .card-img {
+            padding: 20px 0 10px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card-img img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #009640;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .details {
+            padding: 15px 30px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .label {
+            color: #555555;
+            font-weight: 600;
+        }
+
+        .value {
+            color: #222222;
+            font-weight: 500;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #eeeeee;
+            padding: 15px 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="id-card">
+        <div class="card-top">Teacher ID Card</div>
+        
+        <div class="card-img">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSld30vQJYsCgz0aahGHj0_454zEW41uzLHTV5kX_xsog&s" alt="Teacher Image">
+        </div>
+
+        <div class="details">
+            <div class="row">
+                <span class="label">Name:</span>
+                <span class="value">John Doe</span>
+            </div>
+            <div class="row">
+                <span class="label">Subject:</span>
+                <span class="value">Mathematics</span>
+            </div>
+            <div class="row">
+                <span class="label">ID:</span>
+                <span class="value">123456</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="row">
+                <span class="label">School:</span>
+                <span class="value">ABC High School</span>
+            </div>
+            <div class="row" style="margin-bottom: 0;">
+                <span class="label">Contact:</span>
+                <span class="value">+1 234 567 890</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
