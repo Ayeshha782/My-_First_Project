@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form & Password Validator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f6f9;
+        }
+
+        /* Card Container */
+        .card {
+            width: 360px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Form Controls */
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #1e3c72;
+        }
+
+        /* Validation List Styling */
+        .validator-list {
+            list-style: none;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        .validator-list li {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Valid/Invalid Status Styling */
+        .validator-list li.invalid::before {
+            content: '✖';
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .validator-list li.valid {
+            color: #198754;
+            font-weight: 600;
+        }
+
+        .validator-list li.valid::before {
+            content: '✔';
+            color: #198754;
+            font-weight: bold;
+        }
+
+        /* Button Styling */
+        .submit-btn {
+            width: 100%;
+            background-color: #1e3c72;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s, opacity 0.3s;
+        }
+
+        .submit-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background-color: #2a5298;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>User Registration & Validator</h2>
+        
+        <form id="regForm" onsubmit="handleFormSubmit(event)">
+            <!-- Username Input -->
+            <div class="input-group">
+                <label for="username">User Name</label>
+                <input type="text" id="username" placeholder="Enter username..." oninput="validateForm()">
+            </div>
+
+            <!-- Password Input -->
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter password..." oninput="validateForm()">
+            </div>
+
+            <!-- Real-time Rules List -->
+            <ul class="validator-list">
+                <li id="rule-user" class="invalid">Username must be at least 4 characters</li>
+                <li id="rule-len" class="invalid">Minimum 8 characters password</li>
+                <li id="rule-upper" class="invalid">At least one uppercase letter (A-Z)</li>
+                <li id="rule-num" class="invalid">At least one number (0-9)</li>
+                <li id="rule-special" class="invalid">At least one special character (@#$%^&*)</li>
+            </ul>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitBtn" class="submit-btn" disabled>Submit Data</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // 1. Username Check (Minimum 4 chars)
+            const isUserValid = username.trim().length >= 4;
+            updateRuleStatus('rule-user', isUserValid);
+
+            // 2. Password Rule Checks (Regex)
+            const isLengthValid = password.length >= 8;
+            const hasUpper = /[A-Z]/.test(password);
+            const hasNumber = /[0-9]/.test(password);
+            const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+            // UI Text Colors & Icons Update
+            updateRuleStatus('rule-len', isLengthValid);
+            updateRuleStatus('rule-upper', hasUpper);
+            updateRuleStatus('rule-num', hasNumber);
+            updateRuleStatus('rule-special', hasSpecial);
+
+            // Button Enable/Disable Logic
+            const isAllValid = isUserValid && isLengthValid && hasUpper && hasNumber && hasSpecial;
+            document.getElementById('submitBtn').disabled = !isAllValid;
+        }
+
+        // Rule UI update function
+        function updateRuleStatus(elementId, isValid) {
+            const el = document.getElementById(elementId);
+            if (isValid) {
+                el.classList.remove('invalid');
+                el.classList.add('valid');
+            } else {
+                el.classList.remove('valid');
+                el.classList.add('invalid');
+            }
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert("Success! User Name and Password are valid.");
+        }
+    </script>
+
+</body>
+</html>
